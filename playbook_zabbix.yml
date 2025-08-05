@@ -1,1 +1,31 @@
+---
+- name: Clonar repositório e executar script.sh com verificação do Git
+  hosts: all
+  become: yes
 
+  tasks:
+    - name: Verificar se o Git está instalado
+      command: git --version
+      register: git_check
+      ignore_errors: yes
+
+    - name: Instalar o Git se não estiver presente
+      apt:
+        name: git
+        state: present
+        update_cache: yes
+      when: git_check.rc != 0
+
+    - name: Clonar o repositório do GitHub
+      git:
+        repo: https://github.com/Redeley/zabbix-update.git
+        dest: /opt/zabbix-update
+        version: HEAD
+
+    - name: Garantir permissão de execução para script.sh
+      file:
+        path: /opt/zabbix-update/script.sh
+        mode: '0755'
+
+    - name: Executar o script
+      command: /opt/zabbix-update/script.sh
