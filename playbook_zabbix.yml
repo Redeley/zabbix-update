@@ -19,13 +19,13 @@
     - name: Clonar o repositório do GitHub
       git:
         repo: https://github.com/Redeley/zabbix-update.git
-        dest: /opt/zabbix-update
+        dest: /tmp/zabbix-update
         version: HEAD
 
     - name: Garantir permissão de execução para script.sh
       file:
-        path: /opt/zabbix-update/script.sh
+        path: /tmp/zabbix-update/script.zabbix.sh
         mode: '0755'
 
     - name: Executar o script
-      command: /opt/zabbix-update/script.sh
+      command: /tmp/zabbix-update/script.zabbix.sh
