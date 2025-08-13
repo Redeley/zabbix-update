@@ -24,8 +24,8 @@
 
     - name: Garantir permissão de execução para script.sh
       file:
-        path: /tmp/zabbix-update/script.zabbix.sh
+        path: /tmp/zabbix-update/install_zabbix_7.sh
         mode: '0755'
 
     - name: Executar o script
-      command: /tmp/zabbix-update/script.zabbix.sh
+      command: /tmp/zabbix-update/install_zabbix_7.sh
